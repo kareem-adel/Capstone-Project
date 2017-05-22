@@ -75,26 +75,26 @@ public class mWidgetService extends RemoteViewsService {
 
 
         @Override
-        public RemoteViews getViewAt(int position) {
+        public synchronized RemoteViews getViewAt(int position) {
             if (position == -1)
                 return null;
 
             cursor.moveToPosition(position);
 
             RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.article_item_widget);
+            if (cursor.getPosition() != -1) {
+                final String ImageUrl = cursor.getString(cursor.getColumnIndex(ArticlesContract.ArticleEntity.COLUMN_UrlToImage));
+                rv.setTextViewText(R.id.article_item_title, cursor.getString(cursor.getColumnIndex(ArticlesContract.ArticleEntity.COLUMN_Title)));
 
-            final String ImageUrl = cursor.getString(cursor.getColumnIndex(ArticlesContract.ArticleEntity.COLUMN_UrlToImage));
-
-            try {
-                Bitmap bitmap = Glide.with(mWidgetService.this).load(ImageUrl).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).into(200, 200).get();
-                rv.setImageViewBitmap(R.id.article_item_image, bitmap);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
+                try {
+                    Bitmap bitmap = Glide.with(mWidgetService.this).load(ImageUrl).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).into(200, 200).get();
+                    rv.setImageViewBitmap(R.id.article_item_image, bitmap);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
             }
-
-            rv.setTextViewText(R.id.article_item_title, cursor.getString(cursor.getColumnIndex(ArticlesContract.ArticleEntity.COLUMN_Title)));
             return rv;
         }
 

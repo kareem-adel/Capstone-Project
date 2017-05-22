@@ -21,7 +21,6 @@ import com.bumptech.glide.Glide;
 import com.example.kareem.theverge.API.ArticlesAPI;
 import com.example.kareem.theverge.DataSource.Database.ArticlesContract;
 import com.example.kareem.theverge.Favourites.SetFavouritesTask;
-import com.google.android.gms.ads.AdView;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -35,9 +34,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class NewsFeedFragment extends Fragment {
-    GridView NewsFeed;
-    NewsFeedAdapter newsFeedAdapter;
-
 
     ArticlesLoader articlesLoader;
     public final static int TYPE_TOP = 0;
@@ -50,6 +46,7 @@ public class NewsFeedFragment extends Fragment {
     private Toolbar activity_main_toolbar;
     @BindView(R.id.fragment_news_feed_GridView)
     GridView fragment_news_feed_GridView;
+    NewsFeedAdapter newsFeedAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -116,9 +113,9 @@ public class NewsFeedFragment extends Fragment {
                 .withHeaderPadding(true)
                 .build();
 
-        NewsFeed.setNumColumns(1);
+        fragment_news_feed_GridView.setNumColumns(1);
         newsFeedAdapter = new NewsFeedAdapter(getContext(), null, 0);
-        NewsFeed.setAdapter(newsFeedAdapter);
+        fragment_news_feed_GridView.setAdapter(newsFeedAdapter);
 
 
         CurrentSortingType = TYPE_TOP;
@@ -171,7 +168,7 @@ public class NewsFeedFragment extends Fragment {
         @Override
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
             newsFeedAdapter.swapCursor(data);
-            NewsFeed.smoothScrollToPosition(currentFeedClickPosition);
+            fragment_news_feed_GridView.smoothScrollToPosition(currentFeedClickPosition);
         }
 
         @Override

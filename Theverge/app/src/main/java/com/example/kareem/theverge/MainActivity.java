@@ -2,6 +2,7 @@ package com.example.kareem.theverge;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,6 +20,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements NewsFeedFragment.Callback {
 
     boolean twoPane;
+    @Nullable
     @BindView(R.id.main_feed_detail_fragment_container)
     FrameLayout main_feed_detail_fragment_container;
     @BindView(R.id.activity_main_banner)
