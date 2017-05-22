@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">The verge</string>
+    <string name="article_image">article image</string>
+    <string name="top">Top</string>
+    <string name="latest">Latest</string>
+    <string name="favourites">Favourites</string>
+    <string name="loading_news">Loading news</string>
+    <string name="share">Share</string>
+    <string name="BannerKey" translatable="false">ca-app-pub-1663473433594713/2640343556</string>
+    <string name="banner" translatable="false">BANNER</string>
+</resources>
