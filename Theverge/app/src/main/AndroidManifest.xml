@@ -33,7 +33,7 @@
             android:exported="false"
             android:syncable="true" />
 
-        <receiver android:name=".Widget.mWidgetProvider">
+        <receiver android:name=".Widget.VergeWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -43,7 +43,7 @@
         </receiver>
 
         <service
-            android:name=".Widget.mWidgetService"
+            android:name=".Widget.VergeWidgetService"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_REMOTEVIEWS" />

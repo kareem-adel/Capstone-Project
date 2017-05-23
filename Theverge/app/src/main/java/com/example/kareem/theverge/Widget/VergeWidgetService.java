@@ -19,7 +19,7 @@ import com.example.kareem.theverge.R;
 
 import java.util.concurrent.ExecutionException;
 
-public class mWidgetService extends RemoteViewsService {
+public class VergeWidgetService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
@@ -39,18 +39,18 @@ public class mWidgetService extends RemoteViewsService {
         public void onCreate() {
 
             final AppWidgetManager mgr = AppWidgetManager.getInstance(mContext);
-            final ComponentName cn = new ComponentName(mContext, mWidgetProvider.class);
+            final ComponentName cn = new ComponentName(mContext, VergeWidgetProvider.class);
             ContentObserver contentObserver = new ContentObserver(new Handler()) {
                 @Override
                 public void onChange(boolean selfChange) {
                     super.onChange(selfChange);
-                    cursor = new android.content.CursorLoader(mWidgetService.this, ArticlesContract.ArticleSortingEntity.ArticlesSortingUri(), null, null, new String[]{ArticlesAPI.API_SORT_BY_TOP}, null).loadInBackground();
+                    cursor = new android.content.CursorLoader(VergeWidgetService.this, ArticlesContract.ArticleSortingEntity.ArticlesSortingUri(), null, null, new String[]{ArticlesAPI.API_SORT_BY_TOP}, null).loadInBackground();
                     mgr.notifyAppWidgetViewDataChanged(mgr.getAppWidgetIds(cn), R.id.stack_view);
                 }
             };
             mContext.getContentResolver().registerContentObserver(ArticlesContract.ArticleSortingEntity.ArticlesSortingUri(), true, contentObserver);
 
-            cursor = new android.content.CursorLoader(mWidgetService.this, ArticlesContract.ArticleSortingEntity.ArticlesSortingUri(), null, null, new String[]{ArticlesAPI.API_SORT_BY_TOP}, null).loadInBackground();
+            cursor = new android.content.CursorLoader(VergeWidgetService.this, ArticlesContract.ArticleSortingEntity.ArticlesSortingUri(), null, null, new String[]{ArticlesAPI.API_SORT_BY_TOP}, null).loadInBackground();
         }
 
         @Override
@@ -87,7 +87,7 @@ public class mWidgetService extends RemoteViewsService {
                 rv.setTextViewText(R.id.article_item_title, cursor.getString(cursor.getColumnIndex(ArticlesContract.ArticleEntity.COLUMN_Title)));
 
                 try {
-                    Bitmap bitmap = Glide.with(mWidgetService.this).load(ImageUrl).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).into(200, 200).get();
+                    Bitmap bitmap = Glide.with(VergeWidgetService.this).load(ImageUrl).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).into(200, 200).get();
                     rv.setImageViewBitmap(R.id.article_item_image, bitmap);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
